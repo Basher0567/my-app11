@@ -37,12 +37,28 @@ class CategoryController extends Controller
        }
     }
     function CategoryDelete(Request $request){
-
+        $category_id=$request->input('id');
+        $user_id=$request->header('id');
+        Category::where('id',$category_id)->where('user_id',$user_id)->delete();
+        return response()->json([
+            'status'=>'success',
+            'message'=>'Category Delete Successful'
+        ],200);
     }
     function CategoryById(Request $request){
-
+        $category_id=$request->input('id');
+        $user_id=$request->header('id');
+        return Category::where('id',$category_id)->where('user_id',$user_id)->first();
     }
     function CategoryUpdate(Request $request){
-
+        $category_id=$request->input('id');
+        $user_id=$request->header('id');
+        Category::where('id',$category_id)->where('user_id',$user_id)->update([
+            'name'=>$request->input('name')
+        ]);
+        return response()->json([
+            'status'=>'success',
+            'message'=>'Category Update Successful'
+        ],200);
     }
 }

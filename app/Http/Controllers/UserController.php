@@ -126,7 +126,7 @@ class UserController extends Controller
         ],200);
     }
     public function UserUpdate(Request $request){
-    //    dd($request->all());
+    
         try{
             $email=$request->header('email');
             $firstName=$request->input('firstName');
