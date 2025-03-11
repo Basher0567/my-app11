@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Helper\JWTToken;
+use App\Mail\OTPMail;
 use App\Models\User;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class UserController extends Controller
 {
@@ -60,10 +62,43 @@ class UserController extends Controller
         return redirect('/')->cookie('token','',-1);
     }
     function SendOTPCode(Request $request){
-
+        $email=$request->input('email');
+        $otp=rand(1000,9999);
+        $count=User::where('email','',$email)->count();
+        if($count!==null){
+            Mail::to($email)->send(new OTPMail($otp));
+            User::where('email','=',$email)->update(['otp'=>$otp]);
+            return response()->json([
+                'status'=>'success',
+                'message'=>"4 digit $otp"
+            ],200);
+        }
+        else
+        {
+            return response()->json([
+                'status'=>'failed',
+                'message'=>'Unauthorized'
+            ],401);
+        }
     }
     function VerifyOTP(Request $request){
-
+        $email=$request->input('email');
+        $otp=$request->input('otp');
+        $count=User::where('email','=',$email)->where('otp','=',$otp)->count();
+        if($count!==null){
+            User::where('email','=',$email)->update(['otp'=>'0']);
+            $token=JWTToken::CreateTokenForSetPassword($email);
+            return response()->json([
+                'status'=>'success',
+                'message'=>'OTP Verify Successful',
+                'token'=>$token
+            ],200)->cookie('token',$token,time()+60*24*30);
+        }else{
+            return response()->json([
+                'status'=>'failed',
+                'message'=>'Unauthorized'
+            ],400);
+        }
     }
     function ResetPassword(Request $request){
 
