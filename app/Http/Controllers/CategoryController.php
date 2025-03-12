@@ -10,12 +10,8 @@ class CategoryController extends Controller
 {
     public function CategoryList(Request $request){
         $user_id=$request->header('id');
-        $categories = Category::where('id',$user_id)->get();
-        return response()->json([
-            'status'=>'success',
-            'message'=>'New Category created Successful',
-            'data'=>$categories
-        ],200);
+        return Category::where('user_id',$user_id)->get();
+
     }
     public function CategoryCreate(Request $request){
        try{

@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\CustomerController;
 use App\Http\Middleware\TokenVerificationAPIMiddleware;
 
 Route::post('/user-registration',[UserController::class,'UserRegistration'])->name('UserRegistration');
@@ -22,3 +23,11 @@ Route::get('/create-list',[CategoryController::class,'CategoryList'])->middlewar
 Route::post('/delete-category',[CategoryController::class,'CategoryDelete'])->middleware(TokenVerificationAPIMiddleware::class);
 Route::post('/category-by-id',[CategoryController::class,'CategoryById'])->middleware(TokenVerificationAPIMiddleware::class);
 Route::post('/update-category',[CategoryController::class,'CategoryUpdate'])->middleware(TokenVerificationAPIMiddleware::class);
+
+
+//Customer
+Route::post('/create-customer',[CustomerController::class,'CustomerCreate'])->middleware(TokenVerificationAPIMiddleware::class);
+Route::get('/list-customer',[CustomerController::class,'CustomerList'])->middleware(TokenVerificationAPIMiddleware::class);
+Route::post('/delete-customer',[CustomerController::class,'CustomerDelete'])->middleware(TokenVerificationAPIMiddleware::class);
+Route::post('/update-customer',[CustomerController::class,'CustomerUpdate'])->middleware(TokenVerificationAPIMiddleware::class);
+Route::post('/customer-by-id',[CustomerController::class,'CustomerById'])->middleware(TokenVerificationAPIMiddleware::class);
