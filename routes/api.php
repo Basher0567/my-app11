@@ -7,6 +7,7 @@ use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Middleware\TokenVerificationAPIMiddleware;
 
 Route::post('/user-registration',[UserController::class,'UserRegistration'])->name('UserRegistration');
@@ -48,3 +49,8 @@ Route::post('/create-invoice',[InvoiceController::class,'InvoiceCreate'])->middl
 Route::get('/select-invoice',[InvoiceController::class,'InvoiceSelect'])->middleware(TokenVerificationAPIMiddleware::class);
 Route::post('/details-invoice',[InvoiceController::class,'InvoiceDetails'])->middleware(TokenVerificationAPIMiddleware::class);
 Route::post('/delete-invoice',[InvoiceController::class,'InvoiceDelete'])->middleware(TokenVerificationAPIMiddleware::class);
+
+
+
+//Dashboard
+Route::get('/summary',[DashboardController::class,'Summary'])->middleware(TokenVerificationAPIMiddleware::class);

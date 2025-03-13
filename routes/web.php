@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\UserController;
@@ -44,3 +45,7 @@ Route::post('/create-invoice',[InvoiceController::class,'InvoiceCreate'])->middl
 Route::get('/select-invoice',[InvoiceController::class,'InvoiceSelect'])->middleware(TokenVerificationMiddleware::class);
 Route::post('/details-invoice',[InvoiceController::class,'InvoiceDetails'])->middleware(TokenVerificationMiddleware::class);
 Route::post('/delete-invoice',[InvoiceController::class,'InvoiceDelete'])->middleware(TokenVerificationMiddleware::class);
+
+
+//Dashboard
+Route::get('/summary',[DashboardController::class,'Summary'])->middleware(TokenVerificationMiddleware::class);
