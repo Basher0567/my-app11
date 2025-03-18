@@ -3,11 +3,24 @@
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\UserController;
 use App\Http\Middleware\TokenVerificationMiddleware;
 use Illuminate\Support\Facades\Route;
+
+//Laravel Vue Page Routing for user
+Route::get('/',[HomeController::class,'HomePage'])->name('HomePage');
+Route::get('/LoginPage',[UserController::class,'LoginPage'])->name('LoginPage');
+Route::get('/RegistrationPage',[UserController::class,'RegistrationPage'])->name('RegistrationPage');
+Route::get('/SendOTPPage',[UserController::class,'SendOTPPage'])->name('SendOTPPage');
+Route::get('/VerifyOTPPage',[UserController::class,'VerifyOTPPage'])->name('VerifyOTPPage');
+Route::get('/ResetPasswordPage',[UserController::class,'ResetPasswordPage'])->name('ResetPasswordPage');
+
+
+//Laravel Vue Page Routing for user Dashboard
+Route::get('/DashboardPage',[DashboardController::class,'DashboardPage'])->name('DashboardPage');
 
 //user
 Route::post('/user-registration',[UserController::class,'UserRegistration'])->name('UserRegistration');

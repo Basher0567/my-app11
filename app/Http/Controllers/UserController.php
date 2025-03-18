@@ -8,9 +8,26 @@ use App\Models\User;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
+use Inertia\Inertia;
 
 class UserController extends Controller
 {
+    public function LoginPage(){
+        return Inertia::render('LoginPage');
+    }
+    public function RegistrationPage(){
+        return Inertia::render('RegistrationPage');
+    }
+    public function ResetPasswordPage(){
+        return Inertia::render('ResetPasswordPage');
+    }
+    public function SendOTPPage(){
+        return Inertia::render('SendOTPPage');
+    }
+    public function VerifyOTPPage(){
+        return Inertia::render('VerifyOTPPage');
+    }
+
     function UserRegistration(Request $request){
         //dd($request->all());
         try{
@@ -126,7 +143,7 @@ class UserController extends Controller
         ],200);
     }
     public function UserUpdate(Request $request){
-    
+
         try{
             $email=$request->header('email');
             $firstName=$request->input('firstName');
