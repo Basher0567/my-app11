@@ -1,8 +1,12 @@
-<script setup>
+<script setup lang="ts">
+import SideNavLayout from '../Layout/SideNavLayout.vue';
+
 </script>
 
 <template>
-    <h1>This is Dashboard Page</h1>
+    <SideNavLayout>
+        
+    </SideNavLayout>
 </template>
 
-<style scoped></style>
+

@@ -44,15 +44,11 @@ class UserController extends Controller
                 'mobile'=>$mobile,
                 'password'=>$password
             ]);
-            return response()->json([
-                'status'=>'success',
-                'message'=>'Registration Successful'
-            ],201);
+            $data=['message'=>'Registration Successful','status'=>true,'error'=>''];
+            return redirect()->route('LoginPage')->with($data);
         }catch(Exception $e){
-            return response()->json([
-                'status'=>'failed',
-                'message'=>$e->getMessage()
-            ],401);
+            $data=['message'=>'Registration Fail','status'=>true,'error'=>$e->getMessage()];
+            return redirect()->route('RegistrationPage')->with($data);;
         }
 
     }

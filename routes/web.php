@@ -21,6 +21,9 @@ Route::get('/ResetPasswordPage',[UserController::class,'ResetPasswordPage'])->na
 
 //Laravel Vue Page Routing for user Dashboard
 Route::get('/DashboardPage',[DashboardController::class,'DashboardPage'])->name('DashboardPage');
+Route::get('/CategoryPage',[CategoryController::class,'CategoryPage'])->name('CategoryPage');
+Route::get('/CustomerPage',[CustomerController::class,'CustomerPage'])->name('CustomerPage');
+Route::get('/ProductPage',[ProductController::class,'ProductPage'])->name('ProductPage');
 
 //user
 Route::post('/user-registration',[UserController::class,'UserRegistration'])->name('UserRegistration');
