@@ -50,7 +50,7 @@
                 <span class="side-bar-item-caption">Profile</span>
             </Link>
 
-            <Link href="/" class="side-bar-item">
+            <Link href="/logout" class="side-bar-item">
                 <span class="side-bar-item-icon"><i class="fa fa-sign-out-alt text-green"></i></span>
                 <span class="side-bar-item-caption">Logout</span>
             </Link>

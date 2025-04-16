@@ -47,7 +47,7 @@ class UserController extends Controller
             $data=['message'=>'Registration Successful','status'=>true,'error'=>''];
             return redirect()->route('LoginPage')->with($data);
         }catch(Exception $e){
-            $data=['message'=>'Registration Fail','status'=>true,'error'=>$e->getMessage()];
+            $data=['message'=>'Registration Fail','status'=>false,'error'=>$e->getMessage()];
             return redirect()->route('RegistrationPage')->with($data);;
         }
 
@@ -56,23 +56,26 @@ class UserController extends Controller
         $email=$request->input('email');
         $password=$request->input('password');
         $count=User::where('email','=',$email)->where('password','=',$password)->select('id')->first();
+
         if($count!==null){
-            $token=JWTToken::CreateToken($request->input('email'),$count->id);
-            return response()->json([
-                'status'=>'success',
-                'message'=>'Login Successful',
-                'token'=>$token
-            ],201)->cookie('token',$token,time()+60*24*30);
+           $email=$request->input('email');
+           $user_id=$count->id;
+
+           $request->session()->put('email',$email);
+           $request->session()->put('user_id',$user_id);
+
+           $data=['message'=>'Login Successful','status'=>true,'error'=>''];
+           return redirect()->route('DashboardPage')->with($data);
+
         }else{
-            return response()->json([
-                'status'=>'failed',
-                'message'=>'Login Failed'
-            ],401);
+            $data=['message'=>'Login Fail','status'=>false];
+            return redirect()->route('LoginPage')->with($data);
         }
 
     }
-    function UserLogout(){
-        return redirect('/')->cookie('token','',-1);
+    function UserLogout(Request $request){
+        $request->session()->flush();
+        return redirect()->route('LoginPage');
     }
     function SendOTPCode(Request $request){
         $email=$request->input('email');

@@ -51,6 +51,22 @@ import { Link, useForm, router,usePage } from '@inertiajs/vue3'
 const form=useForm({firstName:'',lastName:'',email:'',mobile:'',password:''})
 const page=usePage()
 function submit(){
+    if(form.email.length===0){
+        alert("Email Required")
+    }
+    else if(form.firstName.length===0){
+        alert("First Name Required")
+    }
+    else if(form.lastName.length===0){
+        alert("Last Name Required")
+    }
+    else if(form.mobile.length===0){
+        alert("Mobile Required")
+    }
+    else if(form.password.length===0){
+        alert("Password Required")
+    }
+    else{
     form.post("/user-registration",{
         onSuccess:()=>{
             if(page.props.flash.status===true){
@@ -59,9 +75,8 @@ function submit(){
             else{
                 alert(page.props.flash.message);
             }
-            //console.log(form)
         }
-    })
+    }) }
 }
 </script>
 
