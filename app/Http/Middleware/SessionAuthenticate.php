@@ -15,8 +15,8 @@ class SessionAuthenticate
      */
     public function handle(Request $request, Closure $next): Response
     {
-        $email=$request->session()->get('email');
-        $user_id=$request->session()->get('user_id');
+        $email=$request->session()->get('email','default');
+        $user_id=$request->session()->get('user_id','default');
 
         if($email=='default'){
             return redirect("/LoginPage");

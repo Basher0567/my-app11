@@ -21,10 +21,10 @@ Route::get('/ResetPasswordPage',[UserController::class,'ResetPasswordPage'])->na
 
 
 //Laravel Vue Page Routing for user Dashboard
-Route::get('/DashboardPage',[DashboardController::class,'DashboardPage'])->name('DashboardPage')->middleware(SessionAuthenticate::class);;
-Route::get('/CategoryPage',[CategoryController::class,'CategoryPage'])->name('CategoryPage')->middleware(SessionAuthenticate::class);;
-Route::get('/CustomerPage',[CustomerController::class,'CustomerPage'])->name('CustomerPage')->middleware(SessionAuthenticate::class);;
-Route::get('/ProductPage',[ProductController::class,'ProductPage'])->name('ProductPage')->middleware(SessionAuthenticate::class);;
+Route::get('/DashboardPage',[DashboardController::class,'DashboardPage'])->middleware(SessionAuthenticate::class)->name('DashboardPage');
+Route::get('/CategoryPage',[CategoryController::class,'CategoryPage'])->name('CategoryPage')->middleware(SessionAuthenticate::class);
+Route::get('/CustomerPage',[CustomerController::class,'CustomerPage'])->name('CustomerPage')->middleware(SessionAuthenticate::class);
+Route::get('/ProductPage',[ProductController::class,'ProductPage'])->name('ProductPage')->middleware(SessionAuthenticate::class);
 
 //user
 Route::post('/user-registration',[UserController::class,'UserRegistration'])->name('UserRegistration');
