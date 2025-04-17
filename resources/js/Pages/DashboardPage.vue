@@ -1,12 +1,12 @@
-<script setup lang="ts">
-import SideNavLayout from '../Layout/SideNavLayout.vue';
-
-</script>
-
 <template>
     <SideNavLayout>
-        
+        <SummaryView/>
     </SideNavLayout>
 </template>
+
+<script setup lang="ts">
+import SideNavLayout from '../Layout/SideNavLayout.vue';
+import SummaryView from '../Components/Dashboard/SummaryView.vue';
+</script>
 
 

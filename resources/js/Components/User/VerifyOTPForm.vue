@@ -4,14 +4,16 @@
         <div class="row justify-content-center">
             <div class="col-md-7 col-lg-6 center-screen">
                 <div class="card animated fadeIn w-90  p-4">
-                    <div class="card-body">
+                    <form @submit.prevent="submit">
+                        <div class="card-body">
                         <h4>ENTER OTP CODE</h4>
                         <br/>
                         <label>4 Digit Code Here</label>
-                        <input id="otp" placeholder="Code" class="form-control" type="text"/>
+                        <input id="otp" v-model="form.otp" placeholder="Code" class="form-control" type="text"/>
                         <br/>
-                        <Link href="/ResetPasswordPage"  class="btn w-100 btn-success">Next</Link>
+                        <button type="submit"  class="btn w-100 btn-success">Next</button>
                     </div>
+                    </form>
                 </div>
             </div>
         </div>
@@ -22,7 +24,26 @@
 
 
 <script setup>
-import { Link } from '@inertiajs/vue3'
+import { useForm,usePage,router } from '@inertiajs/vue3'
+const form=useForm({otp:''})
+const page=usePage();
+function submit(){
+    if(form.otp.length===0){
+        alert('OTP Required')
+    }
+    else{
+        form.post("/verify-otp",{
+            onSuccess:()=>{
+                if(page.props.flash.status===true){
+                    router.get("//ResetPasswordPage")
+                }
+                else{
+                    alert(page.props.flash.message)
+                }
+            }
+        })
+    }
+}
 </script>
 
 
