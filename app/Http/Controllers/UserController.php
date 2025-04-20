@@ -160,15 +160,11 @@ class UserController extends Controller
                 'mobile'=>$mobile,
                 'password'=>$password
             ]);
-            return response()->json([
-                'status'=>'success',
-                'message'=>'Request Successful',
-            ],200);
+            $data=['message'=>'Profile Update Successful','status'=>true,'error'=>''];
+            return redirect()->route('ProfilePage')->with($data);
         }catch(Exception $e){
-            return response()->json([
-                'status'=>'failed',
-                'message'=>$e->getMessage()
-            ],400);
+            $data=['message'=>'Profile Update UnSuccessful','status'=>false,'error'=>$e->getMessage()];
+            return redirect()->route('ProfilePage')->with($data);
         }
     }
 }

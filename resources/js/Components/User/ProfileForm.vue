@@ -47,12 +47,40 @@
 
 
 <script setup>
-    import { useForm,usePage } from '@inertiajs/vue3';
-    const form=useForm({
-        firstName:'',lastName:'',email:'',mobile:'',password:''})
+    import { router, useForm,usePage } from '@inertiajs/vue3';
     const page=usePage()
-    function submit(){
+    //console.log(page)
+    const form=useForm({
+        firstName:page.props.list['firstName'],
+        lastName:page.props.list['lastName'],
+        email:page.props.list['email'],
+        mobile:page.props.list['mobile'],
+        password:page.props.list['password']
+    })
 
+    function submit(){
+    if(form.email.length===0){
+        alert("Email Required")
+    }
+    else if(form.firstName.length===0){
+        alert("First Name Required")
+    }
+    else if(form.lastName.length===0){
+        alert("Last Name Required")
+    }
+    else if(form.mobile.length===0){
+        alert("Mobile Required")
+    }
+    else if(form.password.length===0){
+        alert("Password Required")
+    }
+    else{
+        form.post("/user-update",{
+            onSuccess:()=>{
+                alert(page.props.flash.message)
+            }
+        })
+    }
     }
 </script>
 
