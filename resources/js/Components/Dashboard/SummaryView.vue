@@ -10,7 +10,7 @@
                             <div class="col-9 col-lg-8 col-md-8 col-sm-9">
                                 <div>
                                     <h5 class="mb-0 text-capitalize font-weight-bold">
-                                        <span id="product">100</span>
+                                        <span id="product">{{ summary['product'] }}</span>
                                     </h5>
                                     <p class="mb-0 text-sm">Product</p>
                                 </div>
@@ -32,7 +32,7 @@
                             <div class="col-9 col-lg-8 col-md-8 col-sm-9">
                                 <div>
                                     <h5 class="mb-0 text-capitalize font-weight-bold">
-                                        <span id="category">100</span>
+                                        <span id="category">{{ page.props.list['category'] }}</span>
                                     </h5>
                                     <p class="mb-0 text-sm">Category</p>
                                 </div>
@@ -54,7 +54,7 @@
                             <div class="col-9 col-lg-8 col-md-8 col-sm-9">
                                 <div>
                                     <h5 class="mb-0 text-capitalize font-weight-bold">
-                                        <span id="customer">100</span>
+                                        <span id="customer">{{ page.props.list['customer'] }}</span>
                                     </h5>
                                     <p class="mb-0 text-sm">Customer</p>
                                 </div>
@@ -76,7 +76,7 @@
                             <div class="col-9 col-lg-8 col-md-8 col-sm-9">
                                 <div>
                                     <h5 class="mb-0 text-capitalize font-weight-bold">
-                                        <span id="invoice">100</span>
+                                        <span id="invoice">{{ page.props.list['invoice'] }}</span>
                                     </h5>
                                     <p class="mb-0 text-sm">Invoice</p>
                                 </div>
@@ -99,7 +99,7 @@
                             <div class="col-9 col-lg-8 col-md-8 col-sm-9">
                                 <div>
                                     <h5 class="mb-0 text-capitalize font-weight-bold">
-                                        $ <span id="total">1000</span>
+                                        $ <span id="total">{{ page.props.list['total'] }}</span>
                                     </h5>
                                     <p class="mb-0 text-sm">Total Sale</p>
                                 </div>
@@ -122,7 +122,7 @@
                             <div class="col-9 col-lg-8 col-md-8 col-sm-9">
                                 <div>
                                     <h5 class="mb-0 text-capitalize font-weight-bold">
-                                        $ <span id="vat">1000</span>
+                                        $ <span id="vat">{{ page.props.list['vat'] }}</span>
                                     </h5>
                                     <p class="mb-0 text-sm">Vat Collection</p>
                                 </div>
@@ -145,7 +145,7 @@
                             <div class="col-9 col-lg-8 col-md-8 col-sm-9">
                                 <div>
                                     <h5 class="mb-0 text-capitalize font-weight-bold">
-                                        $ <span id="payable">1000</span>
+                                        $ <span id="payable">{{ page.props.list['payable'] }}</span>
                                     </h5>
                                     <p class="mb-0 text-sm">Total Collection</p>
                                 </div>
@@ -166,6 +166,9 @@
 
 
 <script setup>
-
+import { usePage } from '@inertiajs/vue3';
+const page=usePage()
+let summary = page.props.list;
+console.log(page.props.list)
 </script>
 

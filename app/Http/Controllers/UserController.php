@@ -27,6 +27,11 @@ class UserController extends Controller
     public function VerifyOTPPage(){
         return Inertia::render('VerifyOTPPage');
     }
+    public function ProfilePage(Request $request){
+        $email=$request->header('email');
+        $user=User::where('email','=',$email)->first();
+        return Inertia::render('ProfilePage',['list'=>$user]);
+    }
 
     function UserRegistration(Request $request){
         //dd($request->all());
@@ -133,13 +138,13 @@ class UserController extends Controller
        }
     }
     function UserProfile(Request $request){
-        $email=$request->header('email');
+        /*$email=$request->header('email');
         $user=User::where('email','=',$email)->first();
         return response()->json([
             'status'=>'success',
             'message'=>'Request Successful',
             'data'=>$user
-        ],200);
+        ],200);*/
     }
     public function UserUpdate(Request $request){
 

@@ -1,8 +1,12 @@
-<script setup>
-</script>
-
 <template>
-    <h1>This is Profile Page</h1>
+    <SideNavLayout>
+        <ProfileForm/>
+    </SideNavLayout>
 </template>
 
-<style scoped></style>
+<script setup>
+    import SideNavLayout from '../Layout/SideNavLayout.vue';
+    import ProfileForm from '../Components/User/ProfileForm.vue';
+</script>
+
+
