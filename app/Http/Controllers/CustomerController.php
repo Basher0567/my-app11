@@ -8,8 +8,10 @@ use Inertia\Inertia;
 
 class CustomerController extends Controller
 {
-    public function CustomerPage(){
-        return Inertia::render('CustomerPage');
+    public function CustomerPage(Request $request){
+        $user_id=$request->header('user_id');
+        $list= Customer::where('user_id',$user_id)->get();
+        return Inertia::render('CustomerPage',['list'=>$list]);
     }
     public function CustomerCreate(Request $request){
         $user_id=$request->header('id');

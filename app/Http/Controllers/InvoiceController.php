@@ -12,8 +12,10 @@ use Inertia\Inertia;
 
 class InvoiceController extends Controller
 {
-    public function InvoicePage(){
-        return Inertia::render('InvoiceListPage');
+    public function InvoicePage(Request $request){
+        $user_id=$request->header('user_id');
+        $list=Invoice::where('user_id',$user_id)->with('customer')->get();
+        return Inertia::render('InvoiceListPage',['list'=>$list]);
     }
     public function InvoiceCreate(Request $request){
         DB::beginTransaction();

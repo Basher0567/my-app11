@@ -8,8 +8,10 @@ use Inertia\Inertia;
 
 class ProductController extends Controller
 {
-    public function ProductPage(){
-        return Inertia::render('ProductPage');
+    public function ProductPage(Request $request){
+        $user_id=$request->header('user_id');
+        $list= Product::where('user_id',$user_id)->get();
+        return Inertia::render('ProductPage',['list'=>$list]);
     }
     public function ProductCreate(Request $request){
         $user_id=$request->header('id');

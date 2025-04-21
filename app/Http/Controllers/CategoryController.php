@@ -9,8 +9,10 @@ use Inertia\Inertia;
 
 class CategoryController extends Controller
 {
-    public function CategoryPage(){
-        return Inertia::render('CategoryPage');
+    public function CategoryPage(Request $request){
+        $user_id=$request->header('user_id');
+        $list=Category::where('user_id',$user_id)->get();
+        return Inertia::render('CategoryPage',['list'=>$list]);
     }
     public function CategoryList(Request $request){
         $user_id=$request->header('id');

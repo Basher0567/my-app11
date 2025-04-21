@@ -22,38 +22,16 @@
 
 <script setup>
     import { ref } from 'vue';
+    import { usePage } from '@inertiajs/vue3';
+    const page=usePage()
 
     const Header = [
-    { text: "No", value: "no" },
+    { text: "No", value: "id" },
     { text: "Name", value: "name"},
     { text: "Action", value: "number"},
     ];
 
-
-const Item = ref([
-        { "no": "1", "name": "Fruits" },
-        { "no": "2", "name": "Vegetables" },
-        { "no": "3", "name": "Dairy Products" },
-        { "no": "4", "name": "Meat and Poultry" },
-        { "no": "5", "name": "Seafood" },
-        { "no": "6", "name": "Grains and Cereals" },
-        { "no": "7", "name": "Bakery and Pastry" },
-        { "no": "8", "name": "Beverages" },
-        { "no": "9", "name": "Snacks and Appetizers" },
-        { "no": "10", "name": "Spices and Herbs" },
-        { "no": "11", "name": "Sauces and Condiments" },
-        { "no": "12", "name": "Frozen Foods" },
-        { "no": "13", "name": "Canned and Preserved Foods" },
-        { "no": "14", "name": "Organic Foods" },
-        { "no": "15", "name": "Gluten-Free Products" },
-        { "no": "16", "name": "Vegan and Plant-Based Foods" },
-        { "no": "17", "name": "Sweets and Desserts" },
-        { "no": "18", "name": "Nuts and Seeds" },
-        { "no": "19", "name": "Oils and Fats" },
-        { "no": "20", "name": "Ready-to-Eat Meals" }
-    ]
-)
-
+const Item=ref(page.props.list)
 
 const itemClick = (number,player) => {
     alert(`Number is=${number} & Player Name is=${player}`)
