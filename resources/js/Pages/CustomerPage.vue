@@ -1,8 +1,10 @@
-<script setup>
-</script>
-
 <template>
-    <h1>This is Customer Page</h1>
+    <SideNavLayout>
+        <CustomerList/>
+    </SideNavLayout>
 </template>
 
-<style scoped></style>
+<script setup>
+    import CustomerList from '../Components/Customer/CustomerList.vue';
+    import SideNavLayout from '../Layout/SideNavLayout.vue';
+</script>

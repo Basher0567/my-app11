@@ -1,8 +1,12 @@
-<script setup>
-</script>
-
 <template>
-    <h1>This is Category Page</h1>
+    <SideNavLayout>
+        <CategoryList/>
+    </SideNavLayout>
 </template>
 
-<style scoped></style>
+<script setup>
+    import SideNavLayout from '../Layout/SideNavLayout.vue';
+    import CategoryList from '../Components/Category/CategoryList.vue';
+</script>
+
+

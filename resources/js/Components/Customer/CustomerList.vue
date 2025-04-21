@@ -1,4 +1,5 @@
 
+
 <template>
 
     <div class="container-fluid">
@@ -66,3 +67,4 @@ const itemClick = (number,player) => {
 
 
 </script>
+

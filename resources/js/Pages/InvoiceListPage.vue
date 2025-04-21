@@ -1,8 +1,10 @@
-<script setup>
-</script>
-
 <template>
-    <h1>This is Invoice List Page</h1>
+    <SideNavLayout>
+        <InvoiceList/>
+    </SideNavLayout>
 </template>
 
-<style scoped></style>
+<script setup>
+    import SideNavLayout from '../Layout/SideNavLayout.vue';
+    import InvoiceList from '../Components/Invoice/InvoiceList.vue';
+</script>

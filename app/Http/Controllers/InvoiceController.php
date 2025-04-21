@@ -8,9 +8,13 @@ use App\Models\InvoiceProduct;
 use DB;
 use Exception;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
 
 class InvoiceController extends Controller
 {
+    public function InvoicePage(){
+        return Inertia::render('InvoiceListPage');
+    }
     public function InvoiceCreate(Request $request){
         DB::beginTransaction();
         try{

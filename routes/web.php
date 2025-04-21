@@ -26,6 +26,7 @@ Route::get('/CategoryPage',[CategoryController::class,'CategoryPage'])->name('Ca
 Route::get('/CustomerPage',[CustomerController::class,'CustomerPage'])->name('CustomerPage')->middleware(SessionAuthenticate::class);
 Route::get('/ProductPage',[ProductController::class,'ProductPage'])->name('ProductPage')->middleware(SessionAuthenticate::class);
 Route::get("/ProfilePage",[UserController::class,'ProfilePage'])->name('ProfilePage')->middleware(SessionAuthenticate::class);
+Route::get('/InvoiceListPage',[InvoiceController::class,'InvoicePage'])->name('InvoicePage')->middleware(SessionAuthenticate::class);
 
 //user
 Route::post('/user-registration',[UserController::class,'UserRegistration'])->name('UserRegistration');

@@ -1,8 +1,10 @@
-<script setup>
-</script>
-
 <template>
-    <h1>This is Product Page</h1>
+    <SideNavLayout>
+        <ProductList/>
+    </SideNavLayout>
 </template>
 
-<style scoped></style>
+<script setup>
+    import SideNavLayout from '../Layout/SideNavLayout.vue';
+    import ProductList from '../Components/Product/ProductList.vue';
+</script>
