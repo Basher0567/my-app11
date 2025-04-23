@@ -23,6 +23,7 @@ Route::get('/ResetPasswordPage',[UserController::class,'ResetPasswordPage'])->na
 //Laravel Vue Page Routing for user Dashboard
 Route::get('/DashboardPage',[DashboardController::class,'DashboardPage'])->middleware(SessionAuthenticate::class)->name('DashboardPage');
 Route::get('/CategoryPage',[CategoryController::class,'CategoryPage'])->name('CategoryPage')->middleware(SessionAuthenticate::class);
+Route::get('/CategorySavePage',[CategoryController::class,'CategorySavePage'])->name('CategorySavePage')->middleware(SessionAuthenticate::class);
 Route::get('/CustomerPage',[CustomerController::class,'CustomerPage'])->name('CustomerPage')->middleware(SessionAuthenticate::class);
 Route::get('/ProductPage',[ProductController::class,'ProductPage'])->name('ProductPage')->middleware(SessionAuthenticate::class);
 Route::get("/ProfilePage",[UserController::class,'ProfilePage'])->name('ProfilePage')->middleware(SessionAuthenticate::class);
@@ -41,7 +42,7 @@ Route::post('/user-update',[UserController::class,'UserUpdate'])->middleware(Ses
 //Category
 Route::post('/create-category',[CategoryController::class,'CategoryCreate'])->middleware(SessionAuthenticate::class);
 Route::get('/create-list',[CategoryController::class,'CategoryList'])->middleware(SessionAuthenticate::class);
-Route::post('/delete-category',[CategoryController::class,'CategoryDelete'])->middleware(SessionAuthenticate::class);
+Route::get('/delete-category/{id}',[CategoryController::class,'CategoryDelete'])->middleware(SessionAuthenticate::class);
 Route::post('/category-by-id',[CategoryController::class,'CategoryById'])->middleware(SessionAuthenticate::class);
 Route::post('/update-category',[CategoryController::class,'CategoryUpdate'])->middleware(SessionAuthenticate::class);
 
@@ -56,7 +57,7 @@ Route::post('/customer-by-id',[CustomerController::class,'CustomerById'])->middl
 Route::post('/create-product',[ProductController::class,'ProductCreate'])->middleware(SessionAuthenticate::class);
 Route::get('/list-product',[ProductController::class,'ProductList'])->middleware(SessionAuthenticate::class);
 Route::post('/update-product',[ProductController::class,'ProductUpdate'])->middleware(SessionAuthenticate::class);
-Route::post('/delete-product',[ProductController::class,'ProductDelete'])->middleware(SessionAuthenticate::class);
+Route::get('/delete-product/{id}',[ProductController::class,'ProductDelete'])->middleware(SessionAuthenticate::class);
 Route::post('/product-by-id',[ProductController::class,'ProductById'])->middleware(SessionAuthenticate::class);
 
 //Invoice

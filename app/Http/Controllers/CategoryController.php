@@ -14,6 +14,10 @@ class CategoryController extends Controller
         $list=Category::where('user_id',$user_id)->get();
         return Inertia::render('CategoryPage',['list'=>$list]);
     }
+    public function CategorySavePage(){
+
+        return Inertia::render('CategorySavePage');
+    }
     public function CategoryList(Request $request){
         $user_id=$request->header('id');
         return Category::where('user_id',$user_id)->get();
@@ -21,31 +25,31 @@ class CategoryController extends Controller
     }
     public function CategoryCreate(Request $request){
        try{
-        $user_id=$request->header('id');
+        $user_id=$request->header('user_id');
         // return $user_id;
         Category::create([
             'name'=>$request->input('name'),
             'user_id'=>$user_id
         ]);
-        return response()->json([
-            'status'=>'success',
-            'message'=>'New Category created Successful'
-        ],200);
+        $data =['message'=>'Create Successful','status'=>true,'error'=>''];
+        return  redirect()->route('CategorySavePage')->with($data);
        }catch(Exception $e){
-        return response()->json([
-            'status'=>'failed',
-            'message'=>$e->getMessage()
-        ],400);
+        $data =['message'=>'Create not Successful','status'=>false,'error'=>$e->getMessage()];
+        return  redirect()->route('CategorySavePage')->with($data);
        }
     }
     function CategoryDelete(Request $request){
-        $category_id=$request->input('id');
-        $user_id=$request->header('id');
-        Category::where('id',$category_id)->where('user_id',$user_id)->delete();
-        return response()->json([
-            'status'=>'success',
-            'message'=>'Category Delete Successful'
-        ],200);
+        try{
+            $category_id=$request->id;
+            $user_id=$request->header('user_id');
+            Category::where('id',$category_id)->where('user_id',$user_id)->delete();
+            $data=['message'=>'Delete Successful','status'=>true,'error'=>''];
+            return redirect()->route('CategoryPage')->with($data);
+        }catch(Exception $e){
+            $data=['message'=>'Delete UnSuccessful','status'=>false,'error'=>$e->getMessage()];
+            return redirect()->route('CategoryPage')->with($data);
+        }
+
     }
     function CategoryById(Request $request){
         $category_id=$request->input('id');

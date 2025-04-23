@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
+use Exception;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -32,13 +33,16 @@ class ProductController extends Controller
         return Product::where('user_id',$user_id)->get();
     }
     public function ProductDelete(Request $request){
-        $product_id=$request->input('id');
-        $user_id=$request->header('id');
+       try{
+        $product_id=$request->id;
+        $user_id=$request->header('user_id');
         Product::where('id',$product_id)->where('user_id',$user_id)->delete();
-        return response()->json([
-            'status'=>'success',
-            'message'=>'Product Delete successfully'
-        ]);
+        $data=['message'=>'Delete Successful','status'=>true,'error'=>''];
+        return redirect()->route('ProductPage')->with($data);
+       }catch(Exception $e){
+        $data=['message'=>'Delete UnSuccessful','status'=>false,'error'=>$e->getMessage()];
+        return redirect()->route('ProductPage')->with($data);
+       }
     }
     public function ProductUpdate(Request $request){
         $product_id=$request->input('id');

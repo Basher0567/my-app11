@@ -30,19 +30,23 @@
 
 <script setup>
     import {Link,useForm,usePage,router} from '@inertiajs/vue3'
+    import { createToaster } from "@meforma/vue-toaster";
+    const toaster = createToaster();
+
     const form=useForm({email:'',password:''})
     const page=usePage()
     function submit(){
         if(form.email.length===0){
-            alert('Email Required')
+            toaster.error('Email Required')
         }
         else if(form.password.length===0){
-            alert('Password Required')
+            toaster.warning('Password Required')
         }
         else{
             form.post("/user-login",{
                 onSuccess:()=>{
                     if(page.props.flash.status===true){
+                        toaster.success(page.props.flash.message);
                         router.get('/DashboardPage')
                     }
                     else{
