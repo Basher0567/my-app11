@@ -25,6 +25,7 @@ Route::get('/DashboardPage',[DashboardController::class,'DashboardPage'])->middl
 Route::get('/CategoryPage',[CategoryController::class,'CategoryPage'])->name('CategoryPage')->middleware(SessionAuthenticate::class);
 Route::get('/CategorySavePage',[CategoryController::class,'CategorySavePage'])->name('CategorySavePage')->middleware(SessionAuthenticate::class);
 Route::get('/CustomerPage',[CustomerController::class,'CustomerPage'])->name('CustomerPage')->middleware(SessionAuthenticate::class);
+Route::get('/CustomerSavePage',[CustomerController::class,'CustomerSavePage'])->name('CustomerSavePage')->middleware(SessionAuthenticate::class);
 Route::get('/ProductPage',[ProductController::class,'ProductPage'])->name('ProductPage')->middleware(SessionAuthenticate::class);
 Route::get("/ProfilePage",[UserController::class,'ProfilePage'])->name('ProfilePage')->middleware(SessionAuthenticate::class);
 Route::get('/InvoiceListPage',[InvoiceController::class,'InvoicePage'])->name('InvoicePage')->middleware(SessionAuthenticate::class);
@@ -49,7 +50,7 @@ Route::post('/update-category',[CategoryController::class,'CategoryUpdate'])->mi
 //Customer
 Route::post('/create-customer',[CustomerController::class,'CustomerCreate'])->middleware(SessionAuthenticate::class);
 Route::get('/list-customer',[CustomerController::class,'CustomerList'])->middleware(SessionAuthenticate::class);
-Route::post('/delete-customer',[CustomerController::class,'CustomerDelete'])->middleware(SessionAuthenticate::class);
+Route::get('/delete-customer/{id}',[CustomerController::class,'CustomerDelete'])->middleware(SessionAuthenticate::class);
 Route::post('/update-customer',[CustomerController::class,'CustomerUpdate'])->middleware(SessionAuthenticate::class);
 Route::post('/customer-by-id',[CustomerController::class,'CustomerById'])->middleware(SessionAuthenticate::class);
 

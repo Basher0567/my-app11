@@ -19,10 +19,10 @@
 </template>
 
 <script setup>
-    import { useForm,usePage,router,Link } from '@inertiajs/vue3';
+    import { useForm,usePage,router } from '@inertiajs/vue3';
     import { createToaster } from "@meforma/vue-toaster";
     const toaster = createToaster();
-    
+
     const form=useForm({name:''})
     const page=usePage()
     function submit(){
