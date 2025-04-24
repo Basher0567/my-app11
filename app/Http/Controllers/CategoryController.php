@@ -14,9 +14,12 @@ class CategoryController extends Controller
         $list=Category::where('user_id',$user_id)->get();
         return Inertia::render('CategoryPage',['list'=>$list]);
     }
-    public function CategorySavePage(){
+    public function CategorySavePage(Request $request){
+        $category_id = $request->query('id');
+        $user_id = $request->header('user_id');
+        $list=Category::where('id',$category_id)->where('user_id',$user_id)->first();
 
-        return Inertia::render('CategorySavePage');
+        return Inertia::render('CategorySavePage',['list'=>$list]);
     }
     public function CategoryList(Request $request){
         $user_id=$request->header('id');
@@ -46,8 +49,7 @@ class CategoryController extends Controller
             $data=['message'=>'Delete Successful','status'=>true,'error'=>''];
             return redirect()->route('CategoryPage')->with($data);
         }catch(Exception $e){
-            $data=['message'=>'Delete UnSuccessful','status'=>false,'error'=>$e->getMessage()];
-            return redirect()->route('CategoryPage')->with($data);
+            $data=['message'=>'Delete UnSuccessful','status'=>false,'error'=>$e->getMessage()];         return redirect()->route('CategoryPage')->with($data);
         }
 
     }
@@ -58,13 +60,16 @@ class CategoryController extends Controller
     }
     function CategoryUpdate(Request $request){
         $category_id=$request->input('id');
-        $user_id=$request->header('id');
+        $user_id=$request->header('user_id');
         Category::where('id',$category_id)->where('user_id',$user_id)->update([
             'name'=>$request->input('name')
         ]);
-        return response()->json([
-            'status'=>'success',
-            'message'=>'Category Update Successful'
-        ],200);
+
+        // return response()->json([
+        //     'status'=>'success',
+        //     'message'=>'Category Update Successful'
+        // ],200);
+        $data=['message'=>'Updated Successful','status'=>true,'error'=>''];
+        return redirect()->route('CategoryPage')->with($data);
     }
 }
