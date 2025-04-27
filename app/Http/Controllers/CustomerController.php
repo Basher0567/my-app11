@@ -14,8 +14,11 @@ class CustomerController extends Controller
         $list= Customer::where('user_id',$user_id)->get();
         return Inertia::render('CustomerPage',['list'=>$list]);
     }
-    public function CustomerSavePage(){
-        return Inertia::render('CustomerSavePage');
+    public function CustomerSavePage(Request $request){
+        $customer_id=$request->query('id');
+        $user_id=$request->header('user_id');
+        $list=Customer::where('id',$customer_id)->where('user_id',$user_id)->first();
+        return Inertia::render('CustomerSavePage',['list'=>$list]);
     }
     public function CustomerCreate(Request $request){
       try{
@@ -50,17 +53,24 @@ class CustomerController extends Controller
         }
     }
     public function CustomerUpdate(Request $request){
+       try{
         $customer_id=$request->input('id');
-        $user_id=$request->header('id');
+        $user_id=$request->header('user_id');
         Customer::where('id',$customer_id)->where('user_id',$user_id)->update([
             'name'=>$request->input('name'),
             'email'=>$request->input('email'),
             'mobile'=>$request->input('mobile')
         ]);
-        return response()->json([
+        $data=['message'=>'Customer Updated Successful','status'=>true,'error'=>''];
+        return redirect()->route('CustomerPage')->with($data);
+       }catch(Exception $e){
+        $data=['message'=>'Customer Updated not Successful','status'=>false,'error'=>$e->getMessage()];
+        return redirect()->route('CustomerPage')->with($data);
+       }
+        /*return response()->json([
             'status'=>'success',
             'message'=>'Customer Update Successful'
-        ]);
+        ]);*/
     }
     public function CustomerById(Request $request){
         $customer_id=$request->input('id');

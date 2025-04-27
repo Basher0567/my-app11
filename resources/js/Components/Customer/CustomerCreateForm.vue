@@ -25,10 +25,28 @@
 <script setup>
     import { useForm,usePage,router } from '@inertiajs/vue3';
     import { createToaster } from "@meforma/vue-toaster";
+    import { ref } from 'vue';
     const toaster = createToaster();
 
-    const form=useForm({name:'',email:'',mobile:''})
+    const urlParam=new URLSearchParams(window.location.search)
+    const id=ref(parseInt(urlParam.get("id")))
+    //console.log(form.id)
+
+    const form=useForm({name:'',email:'',mobile:'',id:id})
     const page=usePage()
+
+    let URL="/create-customer"
+    let list=page.props.list
+
+    if(id.value !==0 && list !==null){
+        URL="/update-customer"
+        form.name=list.name
+        form.email=list.email
+        form.mobile=list.mobile
+    }
+
+
+
     function submit(){
         if(form.name.length===0){
         toaster.warning("Customer Name Required")
@@ -40,7 +58,7 @@
         toaster.warning("Customer Phone Number Required")
         }
         else{
-            form.post("/create-customer",{
+            form.post(URL,{
             onSuccess:()=>{
                 if(page.props.flash.status===true){
                     router.get("/CustomerPage")

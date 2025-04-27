@@ -6,8 +6,15 @@
                     <div class="card-body">
                         <div>
                             <input placeholder="Search..." class="form-control mb-2 w-auto form-control-sm" type="text" v-model="searchValue">
-                            <EasyDataTable buttons-pagination alternating :headers="Header" :items="Item" :rows-per-page="10" :search-field="searchField"  :search-value="searchValue">
-                                <template #item-number="{ id,name }">
+                            <EasyDataTable
+                                buttons-pagination alternating
+                                :headers="Header"
+                                :items="Item"
+                                :rows-per-page="10"
+                                :search-field="searchField"
+                                :search-value="searchValue"
+                                show-index>
+                                <template #item-number="{ id, name }">
                                     <a class="btn btn-success mx-3 btn-sm":href="`/CategorySavePage?id=${id}`">Edit</a>
                                     <button class="btn btn-danger btn-sm" @click="deleteClick(id)">Delete</button>
                                 </template>
@@ -29,32 +36,21 @@
     const page=usePage()
 
     const Header = [
-    { text: "No", value: "id" },
-    { text: "Name", value: "name"},
-    { text: "Action", value: "number"},
+        // { text: "No", value: "id" },
+        { text: "Name", value: "name"},
+        { text: "Action", value: "number"},
     ];
 
-const Item=ref(page.props.list)
-// if(page.props.flash.status===true){
-
-// }
-// if(page.props.flash.status===false){
-//         toaster.warning('Category Delete Not successfully');
-// }
+    const searchValue = ref();
+    const Item=ref(page.props.list)
 
 const deleteClick=(id)=>{
     let text="Do you want to Delete"
     if(confirm(text)===true){
-
         router.get(`/delete-category/${id}`)
+        toaster.success('Category Deleted successfully');
 
-        if(page.props.flash.status===true){
-            toaster.success('Category Deleted successfully');
-        }else{
-            toaster.warning('Category Delete Not successfully');
-        }
-    }
-    else{
+    }else{
         text="You canceled"
     }
 }

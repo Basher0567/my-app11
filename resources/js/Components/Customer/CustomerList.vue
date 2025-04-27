@@ -9,9 +9,16 @@
                     <div class="card-body">
                         <div>
                             <input placeholder="Search..." class="form-control mb-2 w-auto form-control-sm" type="text" v-model="searchValue">
-                            <EasyDataTable buttons-pagination alternating :headers="Header" :items="Item" :rows-per-page="10" :search-field="searchField"  :search-value="searchValue">
+                            <EasyDataTable
+                             show-index
+                             buttons-pagination alternating
+                             :headers="Header"
+                             :items="Item"
+                             :rows-per-page="10"
+                             :search-field="searchField"
+                             :search-value="searchValue">
                                 <template #item-number="{ id,name }">
-                                    <button class="btn btn-success mx-3 btn-sm" @click="itemClick(id,name)">Edit</button>
+                                    <a class="btn btn-success mx-3 btn-sm" :href="`/CustomerSavePage?id=${id}`">Edit</a>
                                     <button class="btn btn-danger btn-sm" @click="deleteClick(id)">Delete</button>
                                 </template>
                             </EasyDataTable>
@@ -30,35 +37,33 @@
 import {ref} from "vue";
 import {Link,useForm,usePage,router } from "@inertiajs/vue3";
 import { createToaster } from "@meforma/vue-toaster";
+
 const toaster = createToaster();
 const page=usePage()
 
-
 const Header = [
-    { text: "No", value: "id" },
+    // { text: "No", value: "id" },
     { text: "Name", value: "name"},
     { text: "Email", value: "email"},
     { text: "Mobile", value: "mobile"},
     { text: "Action", value: "number"},
 ];
 
-
+const searchValue = ref();
 const Item = ref(page.props.list)
-if(page.props.flash.status===true){
-        toaster.success('Customer Deleted successfully');
-}
-if(page.props.flash.status===false){
-        toaster.warning('Customer Delete Not successfully');
-}
+
 
 const deleteClick = (id) => {
-    router.get(`/delete-customer/${id}`)
-}
+    let text="Do you want to delete"
+    if(confirm(text)===true){
+        router.get(`/delete-customer/${id}`)
+        toaster.success('Customer Deleted successfully');
+    }
+    else{
+        text="You canceled"
+    }
 
-const itemClick = (id,name) => {
-    alert(`ID is=${id} & Name is=${name}`)
 }
-
 
 </script>
 

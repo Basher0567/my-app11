@@ -49,7 +49,8 @@ class CategoryController extends Controller
             $data=['message'=>'Delete Successful','status'=>true,'error'=>''];
             return redirect()->route('CategoryPage')->with($data);
         }catch(Exception $e){
-            $data=['message'=>'Delete UnSuccessful','status'=>false,'error'=>$e->getMessage()];         return redirect()->route('CategoryPage')->with($data);
+            $data=['message'=>'Delete Not Successful','status'=>false,'error'=>$e->getMessage()];
+            return redirect()->route('CategoryPage')->with($data);
         }
 
     }
@@ -59,17 +60,17 @@ class CategoryController extends Controller
         return Category::where('id',$category_id)->where('user_id',$user_id)->first();
     }
     function CategoryUpdate(Request $request){
-        $category_id=$request->input('id');
-        $user_id=$request->header('user_id');
-        Category::where('id',$category_id)->where('user_id',$user_id)->update([
+        try{
+            $category_id=$request->input('id');
+            $user_id=$request->header('user_id');
+            Category::where('id',$category_id)->where('user_id',$user_id)->update([
             'name'=>$request->input('name')
-        ]);
-
-        // return response()->json([
-        //     'status'=>'success',
-        //     'message'=>'Category Update Successful'
-        // ],200);
-        $data=['message'=>'Updated Successful','status'=>true,'error'=>''];
-        return redirect()->route('CategoryPage')->with($data);
+            ]);
+            $data=['message'=>'Updated Successful','status'=>true,'error'=>''];
+            return redirect()->route('CategoryPage')->with($data);
+        }catch(Exception $e){
+            $data=['message'=>'Updated not Successful','status'=>false,'error'=>$e->getMessage()];
+            return redirect()->route('CategoryPage')->with($data);
+        }
     }
 }
