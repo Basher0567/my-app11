@@ -8,13 +8,21 @@
                     <div class="card-body">
                         <div>
                             <input placeholder="Search..." class="form-control mb-2 w-auto form-control-sm" type="text" v-model="searchValue">
-                            <EasyDataTable buttons-pagination alternating :headers="Header" :items="Item" :rows-per-page="10" :search-field="searchField"  :search-value="searchValue">
+                            <EasyDataTable
+                            show-index
+                            buttons-pagination alternating
+                            :headers="Header"
+                            :items="Item"
+                            :rows-per-page="10"
+                            :search-field="searchField"
+                            :search-value="searchValue">
                                 <template #item-number="{ id,name }">
-                                    <button class="btn btn-success mx-3 btn-sm" @click="itemClick(id,name)">Edit</button>
+                                    <a class="btn btn-success mx-3 btn-sm" :href="`ProductSavePage?id=${id}`">Edit</a>
                                     <button class="btn btn-danger btn-sm" @click="deleteClick(id,name)">Delete</button>
                                 </template>
                             </EasyDataTable>
                         </div>
+                        <Link class="btn btn-success my-3" href="/ProductSavePage">Create New</Link>
                     </div>
                 </div>
             </div>
@@ -26,11 +34,14 @@
 
 <script setup>
 import {ref} from "vue";
-import { usePage,router } from "@inertiajs/vue3";
+import { usePage,router,Link } from "@inertiajs/vue3";
+import { createToaster } from "@meforma/vue-toaster";
+
+const toaster = createToaster();
 const page=usePage()
 
 const Header = [
-    { text: "No", value: "id" },
+    //{ text: "No", value: "id" },
     { text: "Name", value: "name"},
     { text: "Price", value: "price"},
     { text: "Unit", value: "unit"},
@@ -39,15 +50,20 @@ const Header = [
 
 
 const Item = ref(page.props.list)
+const searchValue=ref()
 
-const deleteClick = (id,name) => {
-    //alert(`ID is=${id} & Name is=${name}`)
-    router.get(`/delete-product/${id}`)
+const deleteClick = (id) => {
+    let text="Do you want to delete"
+    if(confirm(text)===true){
+        router.get(`/delete-product/${id}`)
+        toaster.success('Product Deleted successfully');
+    }
+    else{
+        text="You canceled"
+    }
+
 }
 
-const itemClick = (id,name) => {
-    alert(`ID is=${id} & Name is=${name}`)
-}
 
 
 </script>
