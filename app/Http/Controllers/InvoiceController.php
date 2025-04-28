@@ -20,7 +20,7 @@ class InvoiceController extends Controller
     public function InvoiceCreate(Request $request){
         DB::beginTransaction();
         try{
-            $user_id=$request->header('id');
+            $user_id=$request->header('user_id');
             $total=$request->input('total');
             $discount=$request->input('discount');
             $vat=$request->input('vat');
@@ -54,12 +54,12 @@ class InvoiceController extends Controller
     }
 
     public function InvoiceSelect(Request $request){
-        $user_id=$request->header('id');
+        $user_id=$request->header('user_id');
         return Invoice::where('user_id',$user_id)->with('customer')->get();
     }
 
     public function InvoiceDetails(Request $request){
-        $user_id=$request->header('id');
+        $user_id=$request->header('user_id');
         $customerDetails=Customer::where('user_id',$user_id)->where('id',$request->input('customer_id'))->first();
         $invoiceTotals=Invoice::where('user_id',$user_id)->where('id',$request->input('invoice_id'))->first();
         $invoiceProduct=InvoiceProduct::where('invoice_id',$request->input('invoice_id'))->where('user_id',$user_id)->with('product')->get();
@@ -73,14 +73,18 @@ class InvoiceController extends Controller
     public function InvoiceDelete(Request $request){
         DB::beginTransaction();
         try{
-            $user_id=$request->header('id');
+            $user_id=$request->header('user_id');
             InvoiceProduct::where('invoice_id',$request->input('invoice_id'))->where('user_id',$user_id)->delete();
             Invoice::where('id',$request->input('invoice_id'))->delete();
             DB::commit();
-            return 1;
+            //return 1;
+            $data=['message'=>'Invoice Delete Successful','status'=>true,'error'=>''];
+            return redirect()->route('InvoiceListPage')->with($data);
         }catch(Exception $e){
             DB::rollBack();
-            return 0;
+            $data=['message'=>'Invoice Delete not Successful','status'=>false,'error'=>$e->getMessage()];
+            return redirect()->route('InvoiceListPage')->with($data);
+            //return 0;
         }
     }
 }

@@ -18,7 +18,7 @@
                             :search-value="searchValue">
                                 <template #item-number="{ id,name }">
                                     <a class="btn btn-success mx-3 btn-sm" :href="`ProductSavePage?id=${id}`">Edit</a>
-                                    <button class="btn btn-danger btn-sm" @click="deleteClick(id,name)">Delete</button>
+                                    <button class="btn btn-danger btn-sm" @click="deleteClick(id)">Delete</button>
                                 </template>
                             </EasyDataTable>
                         </div>
@@ -50,6 +50,7 @@ const Header = [
 
 
 const Item = ref(page.props.list)
+const categories = ref(page.props.categories)
 const searchValue=ref()
 
 const deleteClick = (id) => {

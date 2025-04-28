@@ -2,23 +2,27 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Product;
 use Exception;
-use Illuminate\Http\Request;
 use Inertia\Inertia;
+use App\Models\Product;
+use App\Models\Category;
+use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
     public function ProductPage(Request $request){
         $user_id=$request->header('user_id');
-        $list= Product::where('user_id',$user_id)->get();
-        return Inertia::render('ProductPage',['list'=>$list]);
+        // $list= Product::where('user_id',$user_id)->get();
+        $products = Product::where('user_id', $user_id)
+            ->with('category')->latest()->get();
+        return Inertia::render('ProductPage',['list'=>$products]);
     }
     public function ProductSavePage(Request $request){
         $product_id=$request->id;
         $user_id=$request->header('user_id');
         $list=Product::where('id',$product_id)->where('user_id',$user_id)->first();
-        return Inertia::render('ProductSavePage',['list'=>$list]);
+        $categories = Category::where('user_id', $user_id)->get();
+        return Inertia::render('ProductSavePage',['list'=>$list,'categories'=>$categories]);
     }
     public function ProductCreate(Request $request){
         try{

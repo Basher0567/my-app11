@@ -13,8 +13,14 @@
                             <br/>
                             <input id="unit" name="unit" v-model="form.unit"  placeholder="Unit" class="form-control" type="text"/>
                             <br/>
-                            <input id="categoryId" name="categoryId" v-model="form.category_id"  placeholder="Category_id" class="form-control" type="text"/>
-                            <br/>
+                            <!-- <input id="categoryId" name="categoryId" v-model="form.category_id"  placeholder="Category_id" class="form-control" type="text"/> -->
+                            <div>
+                                <label for="category">Select Category:</label>
+                                <select v-model="form.category_id" class="form-control" id="category">
+                                    <option value="" disabled>Select a category</option>
+                                <option v-for="category in categories" :key="category.id" :value="category.id">{{ category.name }}</option>
+                                </select>
+                            </div>
                             <br/>
                             <button type="submit" class="btn w-100 btn-success">Save Change</button>
                         </div>
@@ -37,15 +43,17 @@
     const form=useForm({name:'',price:'',unit:'',category_id:'',id:id})
     const page=usePage()
 
+    let categories = ref(page.props.categories)
+
     let URL="/create-product"
     let list=page.props.list
 
     if(id.value!==0 && list!==null){
         URL="/update-product"
-        form.name=list.name
-        form.price=list.price
-        form.unit=list.unit
-        form.category_id=list.category_id
+        form.name=list['name']
+        form.price=list['price']
+        form.unit=list['unit']
+        form.category_id=list['category_id']
     }
 
     function submit(){

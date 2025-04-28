@@ -66,7 +66,7 @@ Route::post('/product-by-id',[ProductController::class,'ProductById'])->middlewa
 Route::post('/create-invoice',[InvoiceController::class,'InvoiceCreate'])->middleware(SessionAuthenticate::class);
 Route::get('/select-invoice',[InvoiceController::class,'InvoiceSelect'])->middleware(SessionAuthenticate::class);
 Route::post('/details-invoice',[InvoiceController::class,'InvoiceDetails'])->middleware(SessionAuthenticate::class);
-Route::post('/delete-invoice',[InvoiceController::class,'InvoiceDelete'])->middleware(SessionAuthenticate::class);
+Route::get('/delete-invoice/{id}',[InvoiceController::class,'InvoiceDelete'])->middleware(SessionAuthenticate::class);
 
 //Dashboard
 Route::get('/summary',[DashboardController::class,'Summary'])->middleware(SessionAuthenticate::class);
