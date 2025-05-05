@@ -26,7 +26,7 @@
 
     const urlParam = new URLSearchParams(window.location.search);
     let id = ref(parseInt(urlParam.get("id")));
-   
+
 
     const form=useForm({name:'', id:id});
     const page=usePage()

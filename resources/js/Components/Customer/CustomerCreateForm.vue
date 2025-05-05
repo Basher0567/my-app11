@@ -3,9 +3,15 @@
         <div class="row d-flex justify-content-center">
             <div class="col-md-6">
                 <div class="card">
-                   <form @submit.prevent="submit">
                     <div class="card-body">
-                        <h4>Customer Info</h4>
+                        <div class="float-end">
+                            <a href="/CustomerPage" class="btn btn-success mx-3 btn-sm">
+                                Back
+                            </a>
+                        </div>
+                        <form @submit.prevent="submit">
+                    <div class="card-body">
+                        <h4>Customer</h4>
                         <br/>
                         <input id="name" name="name" v-model="form.name" placeholder="Customer Name" class="form-control" type="text"/>
                         <br/>
@@ -16,6 +22,8 @@
                         <button type="submit" class="btn w-100 btn-success">Save Change</button>
                     </div>
                    </form>
+                    </div>
+
                 </div>
             </div>
         </div>

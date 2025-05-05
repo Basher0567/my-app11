@@ -6,6 +6,11 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-body">
+                        <div class="float-end">
+                            <Link href="/ProductSavePage?id=0" class="btn btn-success mx-3 btn-sm">
+                                Add Product
+                            </Link>
+                        </div>
                         <div>
                             <input placeholder="Search..." class="form-control mb-2 w-auto form-control-sm" type="text" v-model="searchValue">
                             <EasyDataTable

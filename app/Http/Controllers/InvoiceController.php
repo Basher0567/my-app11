@@ -12,10 +12,11 @@ use Inertia\Inertia;
 
 class InvoiceController extends Controller
 {
-    public function InvoicePage(Request $request){
+    public function InvoiceListPage(Request $request){
         $user_id=$request->header('user_id');
-        $list=Invoice::where('user_id',$user_id)->with('customer')->get();
+        $list=Invoice::where('user_id',$user_id)->with('customer','invoiceProduct.product')->get();
         return Inertia::render('InvoiceListPage',['list'=>$list]);
+        //return $list;
     }
     public function InvoiceCreate(Request $request){
         DB::beginTransaction();
@@ -74,8 +75,9 @@ class InvoiceController extends Controller
         DB::beginTransaction();
         try{
             $user_id=$request->header('user_id');
+            $invoice_id=$request->id;
             InvoiceProduct::where('invoice_id',$request->input('invoice_id'))->where('user_id',$user_id)->delete();
-            Invoice::where('id',$request->input('invoice_id'))->delete();
+            Invoice::where('id',$invoice_id)->delete();
             DB::commit();
             //return 1;
             $data=['message'=>'Invoice Delete Successful','status'=>true,'error'=>''];
